@@ -4,13 +4,17 @@ import { NavigationContainer } from '@react-navigation/native';
 
 import Routes from './src/routes';
 
+import { AuthProvider } from './src/hooks/AuthContext';
+
 export default function App() {
   return (
     <NavigationContainer>
       <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
-      <View style={{ flex: 1, backgroundColor: '#F1F2F7' }}>
-        <Routes />
-      </View>
+      <AuthProvider>
+        <View style={{ flex: 1, backgroundColor: '#F1F2F7' }}>
+          <Routes />
+        </View>
+      </AuthProvider>
     </NavigationContainer>
   );
 }

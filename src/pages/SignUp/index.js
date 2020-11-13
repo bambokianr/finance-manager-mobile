@@ -10,6 +10,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import api from '../../services/api';
 
 import { Container, Title, BackToSignIn, BackToSignInText } from './styles';
 
@@ -22,7 +23,6 @@ function SignUp() {
   
   const handleSubmit = useCallback(async data => {
     try {
-      console.log('handleSubmit', data);
       formRef.current.setErrors({});
 
       const schema = Yup.object().shape({
@@ -32,20 +32,22 @@ function SignUp() {
       });
       await schema.validate(data, { abortEarly: false });
       
-      // await api.post('/user', data)
-      //   .then(res => console.log('[RES - create user]', res))
-      //   .catch(err => console.log('[ERR = create user]', err));
-        
-      // history.push('/');
+      await api.post('/user', data)
+        .then(res => {
+          console.log('[RES - create user]', res);
+          Alert.alert('Cadastro realizado com sucesso!', 'Você já pode fazer o seu login.');
+        })
+        .catch(err => {
+          console.log('[ERR = create user]', err);
+          Alert.alert('Erro no cadastro', 'Ocorreu um erro ao fazer cadastro, tente novamente.');
+        });
+      goBack();
     } catch(err) {
       const errors = getValidationErrors(err);
       formRef.current.setErrors(errors);
       return;
     }
-
-    Alert.alert('Erro no cadastro', 'Ocorreu um erro ao fazer cadastro, tente novamente.');
-
-  }, []);
+  }, [goBack]);
 
 
   if(!fontsLoaded) return <></>;

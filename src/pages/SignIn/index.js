@@ -1,5 +1,5 @@
 import React, { useCallback, useRef } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
@@ -10,6 +10,7 @@ import Input from '../../components/Input';
 import Button from '../../components/Button';
 
 import getValidationErrors from '../../utils/getValidationErrors';
+import { useAuth } from '../../hooks/AuthContext';
 
 import { Container, Title, CreateAccount, CreateAccountText } from './styles';
 
@@ -17,6 +18,8 @@ function SignIn() {
   const formRef = useRef(null);
   const passwordInputRef = useRef(null);
   const { navigate } = useNavigation();
+  const { signIn } = useAuth();
+
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
   const handleSubmit = useCallback(async data => {
@@ -31,10 +34,10 @@ function SignIn() {
 
       console.log('[LOGIN]', data);
 
-      // await signIn({
-      //   email: data.email,
-      //   password: data.password,
-      // });
+      await signIn({
+        email: data.email,
+        password: data.password,
+      });
       
       // history.push('/dashboard');
     } catch(err) {
@@ -42,10 +45,7 @@ function SignIn() {
       formRef.current.setErrors(errors);
       return;
     }
-    
-    Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer login, cheque as credenciais e tente novamente.');
-
-  }, []);
+  }, [signIn]);
 
   if(!fontsLoaded) return <></>;
   return (
