@@ -1,8 +1,9 @@
-import React from 'react';
+import React, { useCallback, useRef } from 'react';
 import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
+import { Form } from '@unform/mobile';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
@@ -10,9 +11,14 @@ import Button from '../../components/Button';
 import { Container, Title, CreateAccount, CreateAccountText } from './styles';
 
 function SignIn() {
+  const formRef = useRef(null);
   const { navigate } = useNavigation();
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
+  const handleSubmit = useCallback((data) => {
+    console.log(data);
+  }, []);
+
   if(!fontsLoaded) return <></>;
   return (
     <>
@@ -27,9 +33,11 @@ function SignIn() {
         >
           <Container>
             <View><Title style={{ fontFamily: 'RobotoSlab_400Regular' }}>Faça seu login</Title></View>
-            <Input name='email' icon='mail' placeholder='E-mail' />
-            <Input name='password' icon='lock' placeholder='Senha' />
-            <Button onPress={() => {}}>Entrar</Button>
+            <Form ref={formRef} onSubmit={handleSubmit}>
+              <Input name='email' icon='mail' placeholder='E-mail' />
+              <Input name='password' icon='lock' placeholder='Senha' />
+            </Form>
+            <Button onPress={() => formRef.current?.submitForm()}>Entrar</Button>
           </Container>
         </ScrollView>
       </KeyboardAvoidingView>
