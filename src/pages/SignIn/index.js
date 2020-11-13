@@ -1,12 +1,15 @@
 import React, { useCallback, useRef } from 'react';
-import { View, ScrollView, KeyboardAvoidingView, Platform } from 'react-native';
+import { View, ScrollView, KeyboardAvoidingView, Platform, Alert } from 'react-native';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
 import { Feather as Icon } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 import { Form } from '@unform/mobile';
+import * as Yup from 'yup';
 
 import Input from '../../components/Input';
 import Button from '../../components/Button';
+
+import getValidationErrors from '../../utils/getValidationErrors';
 
 import { Container, Title, CreateAccount, CreateAccountText } from './styles';
 
@@ -16,8 +19,32 @@ function SignIn() {
   const { navigate } = useNavigation();
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
-  const handleSubmit = useCallback((data) => {
-    console.log(data);
+  const handleSubmit = useCallback(async data => {
+    try {
+      formRef.current.setErrors({});
+
+      const schema = Yup.object().shape({
+        email: Yup.string().required('E-mail obrigatório').email('Digite um e-mail válido'),
+        password: Yup.string().required('Senha obrigatória'),
+      });
+      await schema.validate(data, { abortEarly: false });
+
+      console.log('[LOGIN]', data);
+
+      // await signIn({
+      //   email: data.email,
+      //   password: data.password,
+      // });
+      
+      // history.push('/dashboard');
+    } catch(err) {
+      const errors = getValidationErrors(err);
+      formRef.current.setErrors(errors);
+      return;
+    }
+    
+    Alert.alert('Erro na autenticação', 'Ocorreu um erro ao fazer login, cheque as credenciais e tente novamente.');
+
   }, []);
 
   if(!fontsLoaded) return <></>;
