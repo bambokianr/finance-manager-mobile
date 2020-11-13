@@ -1,15 +1,21 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useEffect, useRef, forwardRef, useImperativeHandle } from 'react';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
 import { useField } from '@unform/core';
 
 import { Container, Icon, TextInput } from './styles';
 
-function Input({ name, icon, ...rest }) {
+const Input = forwardRef(({ name, icon, ...rest }, ref) => {
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
   const inputElementRef = useRef(null);
   const { registerField, defaultValue = '', fieldName, error } = useField(name);
   const inputValueRef = useRef({ value: defaultValue });
+
+  useImperativeHandle(ref, () => ({
+    focus() {
+      inputElementRef.current.focus();
+    }
+  }));
 
   useEffect(() => {
     registerField({
@@ -43,6 +49,6 @@ function Input({ name, icon, ...rest }) {
       />
     </Container>
   );
-}
+})
 
 export default Input;

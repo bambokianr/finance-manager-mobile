@@ -12,6 +12,7 @@ import { Container, Title, CreateAccount, CreateAccountText } from './styles';
 
 function SignIn() {
   const formRef = useRef(null);
+  const passwordInputRef = useRef(null);
   const { navigate } = useNavigation();
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
@@ -34,8 +35,25 @@ function SignIn() {
           <Container>
             <View><Title style={{ fontFamily: 'RobotoSlab_400Regular' }}>Faça seu login</Title></View>
             <Form ref={formRef} onSubmit={handleSubmit}>
-              <Input name='email' icon='mail' placeholder='E-mail' />
-              <Input name='password' icon='lock' placeholder='Senha' />
+              <Input 
+                name='email' 
+                icon='mail' 
+                placeholder='E-mail'
+                autoCorrect={false}
+                autoCapitalize='none'
+                keyboardType='email-address'
+                returnKeyType='next'
+                onSubmitEditing={() => passwordInputRef.current?.focus()}
+              />
+              <Input 
+                ref={passwordInputRef}
+                name='password' 
+                icon='lock' 
+                placeholder='Senha' 
+                secureTextEntry
+                returnKeyType='send'
+                onSubmitEditing={() => formRef.current?.submitForm()}
+              />
             </Form>
             <Button onPress={() => formRef.current?.submitForm()}>Entrar</Button>
           </Container>
