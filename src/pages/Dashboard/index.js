@@ -1,6 +1,7 @@
-import React, { useReducer } from 'react';
+import React from 'react';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
 import { Feather as Icon } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
 import { useAuth } from '../../hooks/AuthContext';
 
@@ -8,6 +9,7 @@ import { Container, Header, HeaderTitle, UserName, ActionContent, TouchableButto
 
 function Dashboard() {
   const { user, signOut } = useAuth();
+  const { navigate } = useNavigation();
 
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
 
@@ -20,7 +22,7 @@ function Dashboard() {
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ActionContent>
-          <TouchableButton>
+          <TouchableButton onPress={() => navigate('InsertEditExpense')}>
             <Icon name="edit" size={20} color="#ff9000" />
           </TouchableButton>
           <TouchableButton onPress={signOut}>
