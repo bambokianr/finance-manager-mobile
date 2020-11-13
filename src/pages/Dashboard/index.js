@@ -99,6 +99,7 @@ function Dashboard() {
               data={dayRemindersData}
               horizontal
               showsHorizontalScrollIndicator={false}
+              keyExtractor={item => item.id_expense}
               renderItem={({ item }) => (
                 <ReminderContent key={item.id_expense}>
                   <ReminderDescription style={{ fontFamily: 'RobotoSlab_400Regular' }}>{item.description}</ReminderDescription>
@@ -107,7 +108,7 @@ function Dashboard() {
                     <InfoText style={{ fontFamily: 'RobotoSlab_400Regular' }}>{item.tag}</InfoText>
                   </InfoContainer>
                   <InfoContainer>
-                  <FontAwesome name="money" size={18} color="#ABB2C0" />
+                    <FontAwesome name="money" size={18} color="#ABB2C0" />
                     <InfoText style={{ fontFamily: 'RobotoSlab_400Regular' }}>{`R$ ${item.value.toFixed(2)}`}</InfoText>
                   </InfoContainer>
                 </ReminderContent>
@@ -118,7 +119,7 @@ function Dashboard() {
         <DataDashboard>
           <ContainerTitle>
             <ContainerTitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Overview semanal</ContainerTitleText>
-            <TouchableButton onPress={() => {}}>
+            <TouchableButton onPress={() => navigate('ShowAllExpenses', { data: allExpenses })}>
               <Feather name="plus-square" size={18} color="#ff9000" />
             </TouchableButton>
           </ContainerTitle>
