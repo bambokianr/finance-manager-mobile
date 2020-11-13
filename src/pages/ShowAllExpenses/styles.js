@@ -8,9 +8,19 @@ export const Container = styled.View`
   padding-top: ${getStatusBarHeight() + 20}px;
 `;
 
+export const Header = styled.View`
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+`;
+
 export const TitleText = styled.Text`
   color: #999591;
   font-size: 18px;
+`;
+
+export const TouchableButton = styled.TouchableOpacity`
+  padding: 4px;
 `;
 
 export const ExpenseList = styled.FlatList``;

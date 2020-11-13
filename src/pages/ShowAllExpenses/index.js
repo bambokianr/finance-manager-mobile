@@ -1,12 +1,14 @@
 import React from 'react';
 import { StatusBar } from 'react-native';
 import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab';
-import { Feather, FontAwesome } from '@expo/vector-icons';
+import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
+import { useNavigation } from '@react-navigation/native';
 
-import { Container, TitleText, ExpenseList, ExpenseContent, ExpenseInfo, ExpenseDescription, InfoContainer, InfoText, ActionsContent, Button } from './styles';
+import { Container, Header, TitleText, TouchableButton, ExpenseList, ExpenseContent, ExpenseInfo, ExpenseDescription, InfoContainer, InfoText, ActionsContent, Button } from './styles';
 
 function ShowAllExpenses({ route }) {
   const { data } = route.params;
+  const { goBack } = useNavigation();
 
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
 
@@ -14,7 +16,12 @@ function ShowAllExpenses({ route }) {
   return (
     <Container>
       <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
-      <TitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Todas as despesas salvas</TitleText>
+      <Header>
+        <TitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Todas as despesas salvas</TitleText>
+        <TouchableButton onPress={goBack}>
+          <MaterialIcons name="close" size={24} color="#999591" />
+        </TouchableButton>
+      </Header>
       <ExpenseList 
         data={data}
         showsVerticalScrollIndicator={false}
