@@ -1,4 +1,4 @@
-import styled from 'styled-components/native';
+import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.View`
@@ -6,10 +6,17 @@ export const Container = styled.View`
   height: 60px;
   padding: 0 16px;
   background-color: #232129;
+  border-width: 2px;
+  border-color: #232129;
+
   border-radius: 10px;
   margin-bottom: 8px;
   flex-direction: row;
   align-items: center;
+
+  ${props => props.isFocused && css`
+    border-color: #ff9000;
+  `};
 `;
 
 export const TextInput = styled.TextInput`
