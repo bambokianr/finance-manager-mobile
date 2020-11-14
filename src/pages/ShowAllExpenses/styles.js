@@ -20,7 +20,7 @@ export const TitleText = styled.Text`
 `;
 
 export const TouchableButton = styled.TouchableOpacity`
-  padding: 4px;
+  padding: 4px 0;
 `;
 
 export const ExpenseList = styled.FlatList``;

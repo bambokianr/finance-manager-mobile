@@ -2,7 +2,7 @@ import styled, { css } from 'styled-components/native';
 import { Feather } from '@expo/vector-icons';
 
 export const Container = styled.View`
-  width: 100%;
+  width: ${props => !!props.smaller ? '90%' : '100%'};
   height: 60px;
   padding: 0 16px;
   background-color: #232129;
