@@ -4,6 +4,22 @@ import RNPickerSelect from 'react-native-picker-select';
 
 import { Container } from './styles';
 
+const pickerStyle = {
+  inputIOS: {
+    color: '#fff',
+    fontSize: 16,
+    fontFamily: 'RobotoSlab_400Regular'
+  },
+  inputAndroid: {
+    color: '#fff',
+    fontSize: 16,
+    fontFamily: 'RobotoSlab_400Regular'
+  },
+  placeholder: {
+    color: '#666360'
+  }
+};
+
 function Select({ name, nullValue, dataOptions, onChangeOption = () => {}, onDonePress = () => {} }) {
   const placeholder = { label: nullValue || 'Selecionar tag', value: null };
   const [isFocused, setIsFocused] = useState(false);
@@ -21,7 +37,7 @@ function Select({ name, nullValue, dataOptions, onChangeOption = () => {}, onDon
   return (
     <Container isFocused={isFocused}>
       <RNPickerSelect
-        style={{ color: '#fff', fontSize: '16px', fontFamily: 'RobotoSlab_400Regular' }}
+        style={pickerStyle}
         placeholder={placeholder}
         onOpen={handleSelectFocus}
         onClose={handleSelectBlur}
