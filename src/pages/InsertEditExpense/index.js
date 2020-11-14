@@ -10,6 +10,7 @@ import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
+import Checkbox from '../../components/Checkbox';
 
 import { Container, Header, TitleText, TouchableButton, ContainerInputWithIcon } from './styles';
 
@@ -23,6 +24,7 @@ function InsertEditExpense() {
   const [createNewTag, setCreateNewTag] = useState(false);
   const [tags, setTags] = useState(mockTags);
   const [selectedOptionValue, setSelectedOptionValue] = useState(null);
+  const [addRemember, setAddRemember] = useState(false);
   const formRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const dateInputRef = useRef(null);
@@ -49,7 +51,7 @@ function InsertEditExpense() {
       });
       
       // !!isEdit ? editExpense(data) : createExpense(data);
-
+      console.log('DATA', data);
       await schema.validate(data, { abortEarly: false });
     } catch(err) {
       const errors = err && getValidationErrors(err);
@@ -128,6 +130,12 @@ function InsertEditExpense() {
               name='value' 
               placeholder='Valor: 0.00'
               keyboardType='numeric'
+            />
+            <Checkbox 
+              name='addRemember' 
+              label='Adicionar lembrete' 
+              isChecked={addRemember}
+              setIsChecked={() => setAddRemember(!addRemember)}
             />
           </Form>
           <Button onPress={() => formRef.current?.submitForm()}>Inserir</Button>
