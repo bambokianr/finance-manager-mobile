@@ -4,7 +4,7 @@ import { useField } from '@unform/core';
 
 import { Container, Icon, TextInput } from './styles';
 
-const Input = forwardRef(({ name, icon, ...rest }, ref) => {
+const Input = forwardRef(({ name, icon, smaller, ...rest }, ref) => {
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   
   const inputElementRef = useRef(null);
@@ -47,8 +47,8 @@ const Input = forwardRef(({ name, icon, ...rest }, ref) => {
 
   if(!fontsLoaded) return <></>;
   return (
-    <Container isFocused={isFocused} isErrored={!!error}>
-      <Icon name={icon} size={20} color={(isFocused || isFilled) ? '#ff9000' : '#666360'} />
+    <Container isFocused={isFocused} isErrored={!!error} smaller={smaller}>
+      {icon && <Icon name={icon} size={20} color={(isFocused || isFilled) ? '#ff9000' : '#666360'} />}
       <TextInput
         ref={inputElementRef}
         style={{ fontFamily: 'RobotoSlab_400Regular' }} 
