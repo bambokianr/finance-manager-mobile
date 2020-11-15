@@ -20,11 +20,12 @@ const mockTags = [
   { label: 'Hockey', value: 'hockey' },
 ];
 
-function InsertEditExpense() {
+function InsertEditExpense({ isEdit = false }) {
   const [createNewTag, setCreateNewTag] = useState(false);
-  const [tags, setTags] = useState(mockTags);
-  const [selectedOptionValue, setSelectedOptionValue] = useState(null);
+  const [isExpensePaid, setIsExpensePaid] = useState(false);
   const [addRemember, setAddRemember] = useState(false);
+  const [selectedOptionValue, setSelectedOptionValue] = useState(null);
+  const [tags, setTags] = useState(mockTags);
   const formRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const dateInputRef = useRef(null);
@@ -78,7 +79,7 @@ function InsertEditExpense() {
         <Container>
           <StatusBar barStyle='dark-content' backgroundColor='transparent' translucent />
           <Header>
-            <TitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Insira sua despesa</TitleText>
+            <TitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>{isEdit ? 'Edite sua despesa' : 'Insira sua despesa'}</TitleText>
             <TouchableButton onPress={goBack}>
               <MaterialIcons name='close' size={24} color='#999591' />
             </TouchableButton>
@@ -132,11 +133,26 @@ function InsertEditExpense() {
               keyboardType='numeric'
             />
             <Checkbox 
-              name='addRemember' 
-              label='Adicionar lembrete' 
-              isChecked={addRemember}
-              setIsChecked={() => setAddRemember(!addRemember)}
+              name='paid' 
+              label='Despesa paga' 
+              isChecked={isExpensePaid}
+              setIsChecked={() => setIsExpensePaid(!isExpensePaid)}
             />
+            {!isExpensePaid && 
+              <>
+                <Checkbox 
+                  name='addRemember' 
+                  label='Adicionar lembrete' 
+                  isChecked={addRemember}
+                  setIsChecked={() => setAddRemember(!addRemember)}
+                />
+                {!!addRemember && 
+                  <Input 
+                    name='reminderDate' 
+                  />
+                }
+              </>
+            }
           </Form>
           <Button onPress={() => formRef.current?.submitForm()}>Inserir</Button>
         </Container>
