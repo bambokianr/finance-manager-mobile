@@ -8,6 +8,7 @@ import * as Yup from 'yup';
 
 import getValidationErrors from '../../utils/getValidationErrors';
 import Input from '../../components/Input';
+import DatePicker from '../../components/DatePicker';
 import Select from '../../components/Select';
 import Button from '../../components/Button';
 import Checkbox from '../../components/Checkbox';
@@ -120,12 +121,7 @@ function InsertEditExpense({ isEdit = false }) {
               returnKeyType='next'
               onSubmitEditing={() => dateInputRef.current?.focus()}
             />
-            <Input 
-              ref={dateInputRef}
-              name='date' 
-              returnKeyType='next'
-              onSubmitEditing={() => valueInputRef.current?.focus()}
-            />
+            <DatePicker name='date' />
             <Input 
               ref={valueInputRef}
               name='value' 
@@ -147,9 +143,7 @@ function InsertEditExpense({ isEdit = false }) {
                   setIsChecked={() => setAddRemember(!addRemember)}
                 />
                 {!!addRemember && 
-                  <Input 
-                    name='reminderDate' 
-                  />
+                  <DatePicker name='reminderDate' style={{ marginTop: 8 }} />
                 }
               </>
             }

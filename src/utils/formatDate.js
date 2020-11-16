@@ -1,3 +1,18 @@
+const monthNameToNumber = {
+  JAN: '01',
+  FEB: '02',
+  MAR: '03',
+  APR: '04',
+  MAY: '05',
+  JUN: '06', 
+  JUL: '07',
+  AUG: '08', 
+  SEP: '09',
+  OCT: '10',
+  NOV: '11', 
+  DEC: '12'
+};
+
 export function formatDate(date) {
   var d = new Date(date),
       month = '' + (d.getMonth() + 1),
@@ -19,4 +34,15 @@ export function formatDateToChart(date) {
 	const day = d.split('-')[2];
 	
 	return [day, month, year].join('/');
+}
+
+export function formatDatePickerValue(date) {
+  const stringDate = date.toString();
+  const arrayDate = stringDate.split(' ');
+
+  const day = arrayDate[2];
+  const month = monthNameToNumber[arrayDate[1].toUpperCase()];
+  const year = arrayDate[3];
+
+  return [day, month, year].join('/');
 }
