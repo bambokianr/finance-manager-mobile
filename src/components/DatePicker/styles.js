@@ -16,12 +16,16 @@ export const Container = styled.View`
   align-items: center;
   justify-content: space-between;
 
+  ${props => props.isErrored && css`
+    border-color: #c53030;
+  `}
+  
   ${props => props.isFocused && css`
     border-color: #ff9000;
   `};
 `;
 
-export const TextInput = styled.Text`
+export const TextInput = styled.TextInput`
   color: ${props => props.notFilled ? '#666360' : '#fff'};
   font-size: 16px;
 `;
