@@ -5,11 +5,11 @@ import { Platform } from 'react-native';
 import { Feather } from '@expo/vector-icons';
 import DateTimePicker from '@react-native-community/datetimepicker';
 
-import { formatDatePickerValue } from '../../utils/formatDate';
+import { formatDatePickerValue, formatDateFromApi } from '../../utils/formatDate';
 
 import { Touchable, Container, TextInput, SelectButton, SelectButtonText } from './styles';
 
-function DatePicker({ name, ...rest }) {
+function DatePicker({ name, defaultDate, ...rest }) {
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
 
   const datePickerElementRef = useRef(null);
@@ -38,8 +38,8 @@ function DatePicker({ name, ...rest }) {
   }, [fieldName, registerField]);
 
   useEffect(() => {
-    if(savedDate === null) setNotFilled(true);
-    else setNotFilled(false);
+    if(savedDate !== null || defaultDate) setNotFilled(false)
+    else setNotFilled(true);
   }, [savedDate]);
 
   const onChangeDate = useCallback((event, date) => {
@@ -66,7 +66,7 @@ function DatePicker({ name, ...rest }) {
             style={{ fontFamily: 'RobotoSlab_400Regular' }} 
             notFilled={notFilled}
             placeholderTextColor='#666360'
-            defaultValue='dd/mm/aaaa'
+            defaultValue={defaultDate ? formatDateFromApi(defaultDate) : 'dd/mm/aaaa'}
             value={savedDate}
           />
           <Feather name="calendar" size={20} color={isFocused ? '#ff9000' : notFilled ? '#666360' : '#fff'} />

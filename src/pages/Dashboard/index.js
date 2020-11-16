@@ -76,7 +76,7 @@ function Dashboard() {
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ActionContent>
-          <TouchableButton onPress={() => navigate('InsertEditExpense')}>
+          <TouchableButton onPress={() => navigate('InsertEditExpense', { tagsToSelect: tags })}>
             <Feather name="edit" size={20} color="#ff9000" />
           </TouchableButton>
           <TouchableButton onPress={signOut}>
@@ -119,7 +119,7 @@ function Dashboard() {
         <DataDashboard>
           <ContainerTitle>
             <ContainerTitleText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Overview semanal</ContainerTitleText>
-            <TouchableButton onPress={() => navigate('ShowAllExpenses', { data: allExpenses })}>
+            <TouchableButton onPress={() => navigate('ShowAllExpenses', { data: allExpenses, tagsToSelect: tags })}>
               <Feather name="plus-square" size={18} color="#ff9000" />
             </TouchableButton>
           </ContainerTitle>

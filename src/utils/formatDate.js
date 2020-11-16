@@ -27,7 +27,7 @@ export function formatDate(date) {
   return [year, month, day].join('-');
 }
 
-export function formatDateToChart(date) {
+export function formatDateFromApi(date) {
 	const d = date.split('T')[0];
 	const year = d.split('-')[0];
 	const month = d.split('-')[1];

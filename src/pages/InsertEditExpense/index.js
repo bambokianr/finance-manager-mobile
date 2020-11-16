@@ -15,25 +15,36 @@ import Checkbox from '../../components/Checkbox';
 
 import { Container, Header, TitleText, TouchableButton, ContainerInputWithIcon } from './styles';
 
-const mockTags = [
-  { label: 'Football', value: 'football' },
-  { label: 'Baseball', value: 'baseball' },
-  { label: 'Hockey', value: 'hockey' },
-];
-
-function InsertEditExpense({ isEdit = false }) {
+function InsertEditExpense({ route }) {
+  let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   const [createNewTag, setCreateNewTag] = useState(false);
   const [isExpensePaid, setIsExpensePaid] = useState(false);
   const [addRemember, setAddRemember] = useState(false);
   const [selectedOptionValue, setSelectedOptionValue] = useState(null);
-  const [tags, setTags] = useState(mockTags);
+  const [tags, setTags] = useState([]);
   const formRef = useRef(null);
   const descriptionInputRef = useRef(null);
   const dateInputRef = useRef(null);
   const valueInputRef = useRef(null);
   const { goBack } = useNavigation();
+  const { expenseToEdit } = route.params || {};
+  const { isEdit } = route.params || false;
+  const { tagsToSelect } = route.params || [];
 
-  let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
+  useEffect(() => {
+    if(!!expenseToEdit?.tag) 
+      setSelectedOptionValue(expenseToEdit?.tag);
+    if(!!expenseToEdit?.paid) 
+      setIsExpensePaid(expenseToEdit?.paid);
+    if(!!expenseToEdit?.remindercreated)
+      setAddRemember(true);
+  }, [expenseToEdit]);
+
+  useEffect(() => {
+    const auxTags = [];
+    tagsToSelect && tagsToSelect.map(({ tag }) => auxTags.push({ label: tag, value: tag }));
+    setTags(auxTags);
+  }, [tagsToSelect]);
 
   const onChangeOption = useCallback((optionValue) => {
     setSelectedOptionValue(optionValue);
@@ -65,7 +76,7 @@ function InsertEditExpense({ isEdit = false }) {
     //   InsertEvent(data.value, data.description, data.reminderDate);
     // }
   // }, [createExpense, editExpense, isEdit]);
-  }, []);
+  }, [isEdit]);
 
   if(!fontsLoaded) return <></>;
   return (
@@ -119,15 +130,20 @@ function InsertEditExpense({ isEdit = false }) {
               ref={descriptionInputRef}
               name='description' 
               placeholder='Descrição'
+              defaultValue={expenseToEdit?.description}
               autoCapitalize='none'
               returnKeyType='next'
               onSubmitEditing={() => dateInputRef.current?.focus()}
             />
-            <DatePicker name='date' />
+            <DatePicker 
+              name='date' 
+              defaultDate={expenseToEdit?.date}
+            />
             <Input 
               ref={valueInputRef}
               name='value' 
               placeholder='Valor: 0.00'
+              defaultValue={expenseToEdit?.value.toFixed(2).toString().split('.').join(',')}
               keyboardType='numeric'
             />
             <Checkbox 
@@ -145,12 +161,16 @@ function InsertEditExpense({ isEdit = false }) {
                   setIsChecked={() => setAddRemember(!addRemember)}
                 />
                 {!!addRemember && 
-                  <DatePicker name='reminderDate' style={{ marginTop: 8 }} />
+                  <DatePicker 
+                    style={{ marginTop: 8 }} 
+                    name='reminderDate' 
+                    defaultDate={expenseToEdit?.remindercreated}
+                  />
                 }
               </>
             }
           </Form>
-          <Button onPress={() => formRef.current?.submitForm()}>Inserir</Button>
+          <Button onPress={() => formRef.current?.submitForm()}>{isEdit ? 'Salvar alterações' : 'Inserir'}</Button>
         </Container>
       </ScrollView>
     </KeyboardAvoidingView>

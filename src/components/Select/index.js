@@ -21,7 +21,7 @@ const pickerStyle = {
   }
 };
 
-function Select({ name, nullValue, dataOptions, onChangeOption = () => {}, onDonePress = () => {} }) {
+function Select({ name, nullValue, selectedOptionValue, dataOptions, onChangeOption = () => {}, onDonePress = () => {} }) {
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
   const selectRef = useRef(null);
   const placeholder = { label: nullValue || 'Selecionar tag', value: null };
@@ -59,6 +59,7 @@ function Select({ name, nullValue, dataOptions, onChangeOption = () => {}, onDon
   return (
     <Container isFocused={isFocused} isErrored={!!error}>
       <RNPickerSelect
+        value={selectedOptionValue}
         ref={selectRef}
         style={pickerStyle}
         placeholder={placeholder}

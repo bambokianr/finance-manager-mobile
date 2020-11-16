@@ -4,13 +4,24 @@ import { useFonts, RobotoSlab_400Regular } from '@expo-google-fonts/roboto-slab'
 import { Feather, FontAwesome, MaterialIcons } from '@expo/vector-icons';
 import { useNavigation } from '@react-navigation/native';
 
+import { useAuth } from '../../hooks/AuthContext';
+import api from '../../services/api';
+
 import { Container, Header, TitleText, TouchableButton, ExpenseList, ExpenseContent, ExpenseInfo, ExpenseDescription, InfoContainer, InfoText, ActionsContent, Button } from './styles';
 
 function ShowAllExpenses({ route }) {
-  const { data } = route.params;
-  const { goBack } = useNavigation();
-
   let [fontsLoaded] = useFonts({ RobotoSlab_400Regular });
+  const { data, tagsToSelect } = route.params;
+  const { goBack, navigate } = useNavigation();
+  const { token } = useAuth();
+
+  async function deleteExpense(id_expense) {
+    // const path = `/expense/${token}/${id_expense}`;
+    // await api.delete(path, { token, id_expense })
+    //   .then(res => console.log('[RES - deleteExpense]', res))
+    //   .catch(err => console.log('[ERR - deleteExpense]', err));
+    // update();
+  };
 
   if(!fontsLoaded) return <></>;
   return (
@@ -25,7 +36,7 @@ function ShowAllExpenses({ route }) {
       <ExpenseList 
         data={data}
         showsVerticalScrollIndicator={false}
-        keyExtractor={item => item.id_expense}
+        keyExtractor={item => item.id_expense.toString()}
         renderItem={({ item }) => (
           <ExpenseContent key={item.id_expense}>
             <ExpenseInfo>
@@ -40,10 +51,10 @@ function ShowAllExpenses({ route }) {
               </InfoContainer>
             </ExpenseInfo>
             <ActionsContent>
-              <Button>
+              <Button onPress={() => navigate('InsertEditExpense', { expenseToEdit: item, isEdit: true, tagsToSelect })}>
                 <Feather name="edit-3" size={18} color="#fff" />
               </Button>
-              <Button caution={true}>
+              <Button caution={true} onPress={() => deleteExpense(item.id_expense)}>
                 <Feather name="trash-2" size={18} color="#fff" />
               </Button>
             </ActionsContent>
