@@ -44,7 +44,7 @@ function DatePicker({ name, ...rest }) {
           <Feather name="calendar" size={20} color={isFocused ? '#ff9000' : notFilled ? '#666360' : '#fff'} />
         </Container>
       </Touchable>
-      {!!isFocused ?
+      {!!isFocused &&
         <>
           <DateTimePicker
             value={selectedDate}
@@ -58,23 +58,8 @@ function DatePicker({ name, ...rest }) {
             <SelectButtonText style={{ fontFamily: 'RobotoSlab_400Regular' }}>Selecionar essa data</SelectButtonText>
           </SelectButton>
         </>
-      :
-        <></>
       }
     </>
-    // <View>
-    //   <View>
-    //     <Button onPress={showMode} title="Show date picker!" />
-    //   </View>
-    //   {show && (
-    //     <DateTimePicker
-    //       value={date}
-    //       mode="date"
-    //       display="default"
-    //       onChange={onChange}
-    //     />
-    //   )}
-    // </View>
   );
 }
 
