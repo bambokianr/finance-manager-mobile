@@ -50,6 +50,7 @@ function InsertEditExpense({ isEdit = false }) {
         description: Yup.string().required('Descrição obrigatória'),
         date: Yup.string().required('Data obrigatória'),
         value: Yup.string().required('Valor obrigatório'),
+        tag: Yup.string().required('Tag obrigatória'),
       });
       
       // !!isEdit ? editExpense(data) : createExpense(data);
@@ -89,6 +90,7 @@ function InsertEditExpense({ isEdit = false }) {
             {!createNewTag ? 
               <ContainerInputWithIcon>
                 <Select 
+                  name='tag'
                   dataOptions={tags}
                   onChangeOption={onChangeOption}
                   selectedOptionValue={selectedOptionValue}

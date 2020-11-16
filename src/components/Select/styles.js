@@ -11,6 +11,10 @@ export const Container = styled.View`
   padding: 16px;
   margin-bottom: 8px;
 
+  ${props => props.isErrored && css`
+    border-color: #c53030;
+  `}
+  
   ${props => props.isFocused && css`
     border-color: #ff9000;
   `}
