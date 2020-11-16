@@ -76,6 +76,7 @@ function DatePicker({ name, ...rest }) {
         <>
           <DateTimePicker
             value={selectedDate}
+            style={{ height: 120 }}
             mode='date'
             locale='pt-BR'
             display={Platform.OS === 'android' ? 'calendar' : 'spinner'}
