@@ -32,7 +32,9 @@ Principais módulos auxiliares ao desenvolvimento mobile do projeto.
 
 ### :pencil: Implementações futuras
 
-...
+Permitir a criação, edição e remoção de despesas. Assim como no projeto web, criar o formulário presente na página `InsertEditExpense` e, além disso, incrementar na listagem das despesas os botões de ação que permitem tanto remover um item quanto direcioná-lo para a tela mencionada anteriormente.
+
+Adicionar à página `Dashboard` o gráfico que permite a visualização do overview semanal de despesas, com a possibilidade de filtrar os dados pelas tags de categorização. Para isso, pode ser usada a biblioteca [react-native-chart-kit](https://github.com/indiespirit/react-native-chart-kit).
 
 obs: repositório back-end do projeto [aqui](https://github.com/alvesouza/financemanagerces26back).
 

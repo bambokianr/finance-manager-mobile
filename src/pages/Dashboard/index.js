@@ -139,7 +139,7 @@ function Dashboard() {
             )}
             <List
               data={allExpenses}
-              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.id_expense.toString()}
               renderItem={({ item }) => (
                 <HistoricContent key={item.id_expense}>
