@@ -35,14 +35,3 @@ export function formatDateFromApi(date) {
 	
 	return [day, month, year].join('/');
 }
-
-export function formatDatePickerValue(date) {
-  const stringDate = date.toString();
-  const arrayDate = stringDate.split(' ');
-
-  const day = arrayDate[2];
-  const month = monthNameToNumber[arrayDate[1].toUpperCase()];
-  const year = arrayDate[3];
-
-  return [day, month, year].join('/');
-}

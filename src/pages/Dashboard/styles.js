@@ -64,17 +64,17 @@ export const NoDataText = styled.Text`
   color: #28262e;
 `;
 
-export const ReminderList = styled.FlatList``;
+export const List = styled.FlatList``;
 
 export const ReminderContent = styled.View`
-  background-color: #3b3e47;
+  background-color: #ff9000;
   width: 240px;
   padding: 16px 24px;
   border-radius: 10px;
   margin: 12px 8px 0 0;
 `;
 
-export const ReminderDescription = styled.Text`
+export const ExpenseDescription = styled.Text`
   color: #ff9000;
   font-size: 16px;
   margin-bottom: 4px;
@@ -90,4 +90,12 @@ export const InfoText = styled.Text`
   padding-left: 8px;
   color: #ABB2C0;
   font-size: 14px;
+`;
+
+export const HistoricContent = styled.View`
+  background-color: #3b3e47;
+  width: 100%;
+  padding: 16px 24px;
+  border-radius: 10px;
+  margin: 12px 8px 0 0;
 `;
