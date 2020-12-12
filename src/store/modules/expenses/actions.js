@@ -25,31 +25,3 @@ export function fetchAllExpensesSuccess(allExpenses) {
     payload: { allExpenses },
   };
 }
-
-export function fetchTagsRequest(token) {
-  return {
-    type: "FETCH_TAGS_REQUEST",
-    payload: { token },
-  };
-}
-
-export function fetchTagsSuccess(tags) {
-  return {
-    type: "FETCH_TAGS_SUCCESS",
-    payload: { tags },
-  };
-}
-
-export function fetchExpensesToChartRequest(token) {
-  return {
-    type: "FETCH_EXPENSES_TO_CHART_REQUEST",
-    payload: { token },
-  };
-}
-
-export function fetchExpensesToChartSuccess(expensesToChart) {
-  return {
-    type: "FETCH_EXPENSES_TO_CHART_SUCCESS",
-    payload: { expensesToChart },
-  };
-}

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useEffect } from "react";
+import React, { useCallback, useEffect } from "react";
 import { StatusBar } from "react-native";
 import {
   useFonts,
@@ -7,17 +7,11 @@ import {
   RobotoSlab_500Medium,
 } from "@expo-google-fonts/roboto-slab";
 import { Feather, FontAwesome } from "@expo/vector-icons";
-import { useNavigation } from "@react-navigation/native";
 import { useDispatch, useSelector } from "react-redux";
-import {
-  fetchDayRemindersRequest,
-  fetchAllExpensesRequest,
-  fetchTagsRequest,
-  fetchExpensesToChartRequest,
-} from "../../store/modules/expenses/actions";
+import { fetchDayRemindersRequest, fetchAllExpensesRequest } from "../../store/modules/expenses/actions";
 
 import { useAuth } from "../../hooks/AuthContext";
-import { formatDate } from "../../utils/formatDate";
+import { formatDate, formatDateFromApi } from "../../utils/formatDate";
 
 import {
   Container,
@@ -33,21 +27,18 @@ import {
   ContainerTitleText,
   DataDashboardContent,
   NoDataText,
-  ReminderList,
+  List,
   ReminderContent,
-  ReminderDescription,
+  HistoricContent,
+  ExpenseDescription,
   InfoContainer,
   InfoText,
 } from "./styles";
 
 function Dashboard() {
   const { user, token, signOut } = useAuth();
-  const { navigate } = useNavigation();
 
-  const { dayReminders, allExpenses, tags, expensesToChart } = useSelector(
-    (state) => state.expenses
-  );
-
+  const { dayReminders, allExpenses } = useSelector((state) => state.expenses);
   const dispatch = useDispatch();
 
   let [fontsLoaded] = useFonts({
@@ -65,19 +56,9 @@ function Dashboard() {
     dispatch(fetchAllExpensesRequest(token));
   }, [dispatch]);
 
-  const handleFetchTagsRequest = useCallback(() => {
-    dispatch(fetchTagsRequest(token));
-  }, [dispatch]);
-
-  const handleFetchExpensesToChartRequest = useCallback(() => {
-    dispatch(fetchExpensesToChartRequest(token));
-  }, [dispatch]);
-
   useEffect(() => {
     handleFetchDayRemindersRequest();
     handleFetchAllExpensesRequest();
-    handleFetchTagsRequest();
-    handleFetchExpensesToChartRequest();
   }, []);
 
   if (!fontsLoaded) return <></>;
@@ -94,13 +75,6 @@ function Dashboard() {
           <UserName>{user.name}</UserName>
         </HeaderTitle>
         <ActionContent>
-          <TouchableButton
-            onPress={() =>
-              navigate("InsertEditExpense", { tagsToSelect: tags })
-            }
-          >
-            <Feather name="edit" size={20} color="#ff9000" />
-          </TouchableButton>
           <TouchableButton onPress={signOut}>
             <Feather name="power" size={20} color="#999591" />
           </TouchableButton>
@@ -115,9 +89,6 @@ function Dashboard() {
             <ContainerTitleText style={{ fontFamily: "RobotoSlab_400Regular" }}>
               Lembretes do dia
             </ContainerTitleText>
-            <TouchableButton onPress={() => {}}>
-              <Feather name="calendar" size={18} color="#ff9000" />
-            </TouchableButton>
           </ContainerTitle>
           <DataDashboardContent>
             {dayReminders.length === 0 && (
@@ -125,18 +96,64 @@ function Dashboard() {
                 Você não possui lembretes para hoje!
               </NoDataText>
             )}
-            <ReminderList
+            <List
               data={dayReminders}
               horizontal
               showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.id_expense.toString()}
               renderItem={({ item }) => (
                 <ReminderContent key={item.id_expense}>
-                  <ReminderDescription
+                  <ExpenseDescription
+                    style={{ fontFamily: "RobotoSlab_400Regular", color: '#3b3e47' }}
+                  >
+                    {item.description}
+                  </ExpenseDescription>
+                  <InfoContainer>
+                    <Feather name="tag" size={18} color="#fff" />
+                    <InfoText style={{ fontFamily: "RobotoSlab_400Regular", color: "#fff" }}>
+                      {item.tag}
+                    </InfoText>
+                  </InfoContainer>
+                  <InfoContainer>
+                    <FontAwesome name="money" size={18} color="#fff" />
+                    <InfoText
+                      style={{ fontFamily: "RobotoSlab_400Regular", color: '#fff' }}
+                    >{`R$ ${item.value.toFixed(2)}`}</InfoText>
+                  </InfoContainer>
+                </ReminderContent>
+              )}
+            />
+          </DataDashboardContent>
+        </DataDashboard>
+        <DataDashboard>
+          <ContainerTitle>
+            <ContainerTitleText style={{ fontFamily: "RobotoSlab_400Regular" }}>
+              Histórico de despesas
+            </ContainerTitleText>
+          </ContainerTitle>
+          <DataDashboardContent>
+            {allExpenses.length === 0 && (
+              <NoDataText style={{ fontFamily: "RobotoSlab_300Light" }}>
+                Você não possui despesas no histórico.
+              </NoDataText>
+            )}
+            <List
+              data={allExpenses}
+              showsHorizontalScrollIndicator={false}
+              keyExtractor={(item) => item.id_expense.toString()}
+              renderItem={({ item }) => (
+                <HistoricContent key={item.id_expense}>
+                  <ExpenseDescription
                     style={{ fontFamily: "RobotoSlab_400Regular" }}
                   >
                     {item.description}
-                  </ReminderDescription>
+                  </ExpenseDescription>
+                  <InfoContainer style={{ marginBottom: 10 }}>
+                    <FontAwesome name="calendar" size={18} color="#fff" />
+                    <InfoText
+                      style={{ fontFamily: "RobotoSlab_400Regular", color: '#fff' }}
+                    >{formatDateFromApi(item.date)}</InfoText>
+                  </InfoContainer>
                   <InfoContainer>
                     <Feather name="tag" size={18} color="#ABB2C0" />
                     <InfoText style={{ fontFamily: "RobotoSlab_400Regular" }}>
@@ -149,33 +166,9 @@ function Dashboard() {
                       style={{ fontFamily: "RobotoSlab_400Regular" }}
                     >{`R$ ${item.value.toFixed(2)}`}</InfoText>
                   </InfoContainer>
-                </ReminderContent>
+                </HistoricContent>
               )}
             />
-          </DataDashboardContent>
-        </DataDashboard>
-        <DataDashboard>
-          <ContainerTitle>
-            <ContainerTitleText style={{ fontFamily: "RobotoSlab_400Regular" }}>
-              Overview semanal
-            </ContainerTitleText>
-            <TouchableButton
-              onPress={() =>
-                navigate("ShowAllExpenses", {
-                  data: allExpenses,
-                  tagsToSelect: tags,
-                })
-              }
-            >
-              <Feather name="plus-square" size={18} color="#ff9000" />
-            </TouchableButton>
-          </ContainerTitle>
-          <DataDashboardContent>
-            {expensesToChart.length === 0 && (
-              <NoDataText style={{ fontFamily: "RobotoSlab_300Light" }}>
-                Não existem dados suficientes para gerar o gráfico de despesas.
-              </NoDataText>
-            )}
           </DataDashboardContent>
         </DataDashboard>
       </Content>
