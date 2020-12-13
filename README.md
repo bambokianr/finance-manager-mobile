@@ -51,7 +51,7 @@ Instalar todos as dependências do projeto, presentes no arquivo package.json co
 $ npm install
 
 Para executar o projeto, rodar o seguinte comando
-$npm start
+$ npm start
 
 A partir daí, pode-se ter acesso ao app desenvolvido de várias maneiras:
 - baixar o expo app e escanear o QR code com seu celular para que o projeto seja executado
