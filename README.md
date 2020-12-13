@@ -46,6 +46,10 @@ obs: repositório front-end web do projeto [aqui](https://github.com/bambokianr/
 
 ### :round_pushpin: Execução do projeto
 
+** Modo 1
+Acessar o [link](https://expo.io/@bamborrib/projects/finance-manager-mobile).
+
+** Modo 2
 É necessário ter [Node.js](https://nodejs.org/en/) e [expo cli](https://docs.expo.io/workflow/expo-cli/) instalado em sua máquina.
 
 ```
