@@ -3,7 +3,7 @@
 > Alunos:
 > Leo Gomes, Pedro Alves e Rafaella Bambokian - COMP21
 
-![til](./gif/prj_mobile.gif | width=100)
+<img src="./gif/prj_mobile.gif" width="250" height="250"/>
 _Overview do projeto_
 
 ### :bangbang: Proposta
