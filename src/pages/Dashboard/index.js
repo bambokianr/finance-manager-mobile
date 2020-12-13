@@ -98,8 +98,7 @@ function Dashboard() {
             )}
             <List
               data={dayReminders}
-              horizontal
-              showsHorizontalScrollIndicator={false}
+              showsVerticalScrollIndicator={false}
               keyExtractor={(item) => item.id_expense.toString()}
               renderItem={({ item }) => (
                 <ReminderContent key={item.id_expense}>
@@ -139,7 +138,8 @@ function Dashboard() {
             )}
             <List
               data={allExpenses}
-              showsVerticalScrollIndicator={false}
+              horizontal
+              showsHorizontalScrollIndicator={false}
               keyExtractor={(item) => item.id_expense.toString()}
               renderItem={({ item }) => (
                 <HistoricContent key={item.id_expense}>

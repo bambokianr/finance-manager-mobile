@@ -27,6 +27,8 @@
     },
     "web": {
       "favicon": "./assets/favicon.png"
-    }
+    },
+    "description": "Front-end de aplicação mobile desenvolvida com React Native - matéria CES-26: Desenvolvimento de Aplicações para a Internet.",
+    "githubUrl": "https://github.com/bambokianr/finance-manager-mobile"
   }
 }

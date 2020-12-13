@@ -68,7 +68,7 @@ export const List = styled.FlatList``;
 
 export const ReminderContent = styled.View`
   background-color: #ff9000;
-  width: 240px;
+  width: 100%;
   padding: 16px 24px;
   border-radius: 10px;
   margin: 12px 8px 0 0;
@@ -94,7 +94,7 @@ export const InfoText = styled.Text`
 
 export const HistoricContent = styled.View`
   background-color: #3b3e47;
-  width: 100%;
+  width: 240px;
   padding: 16px 24px;
   border-radius: 10px;
   margin: 12px 8px 0 0;
