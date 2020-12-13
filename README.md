@@ -3,6 +3,7 @@
 > Alunos:
 > Leo Gomes, Pedro Alves e Rafaella Bambokian - COMP21
 
+![til](./gif/prj_mobile.gif)
 _Overview do projeto_
 
 ### :bangbang: Proposta
@@ -42,7 +43,7 @@ obs: repositório back-end do projeto [aqui](https://github.com/alvesouza/financ
 
 obs: repositório front-end web do projeto [aqui](https://github.com/bambokianr/finance-manager-front).
 
-### Execução do projeto
+### :round_pushpin: Execução do projeto
 
 É necessário ter [Node.js](https://nodejs.org/en/) e [expo cli](https://docs.expo.io/workflow/expo-cli/) instalado em sua máquina.
 
