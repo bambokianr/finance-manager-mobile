@@ -22,7 +22,6 @@ Aplicativo para visualização dos gastos pessoais anteriormente geridos na [pla
 Principais módulos auxiliares ao desenvolvimento mobile do projeto.
 
 - expo - ferramenta usada como ambiente de desenvolvimento React Native
-- context API - gerenciamento de estados globais da aplicação
 - styled-components - biblioteca de estilos que permite escrever código css em arquivos JavaScript
 - unform - biblioteca para criação de formulários focada em performance, evitando a renderização de cada componente com a atualização de campos de inserção de dados
 - yup - biblioteca para validação de dados (vindos de inputs de formulários)
