@@ -36,6 +36,24 @@ Permitir a criação, edição e remoção de despesas. Assim como no projeto we
 
 Adicionar à página `Dashboard` o gráfico que permite a visualização do overview semanal de despesas, com a possibilidade de filtrar os dados pelas tags de categorização. Para isso, pode ser usada a biblioteca [react-native-chart-kit](https://github.com/indiespirit/react-native-chart-kit).
 
+Integrar o aplicativo com o Google Calendar para que, ao adicionar uma despesa que tenha um lembrete para efetuar o pagamento, esse item possa ser inserido à conta Google do usuário na data escolhida para o aviso.
+
 obs: repositório back-end do projeto [aqui](https://github.com/alvesouza/financemanagerces26back).
 
 obs: repositório front-end web do projeto [aqui](https://github.com/bambokianr/finance-manager-front).
+
+### Execução do projeto
+
+É necessário ter [Node.js](https://nodejs.org/en/) e [expo cli](https://docs.expo.io/workflow/expo-cli/) instalado em sua máquina.
+
+```
+Instalar todos as dependências do projeto, presentes no arquivo package.json com o seguinte comando
+$ npm install
+
+Para executar o projeto, rodar o seguinte comando
+$npm start
+
+A partir daí, pode-se ter acesso ao app desenvolvido de várias maneiras:
+- baixar o expo app e escanear o QR code com seu celular para que o projeto seja executado
+- rodar com emulador em sua máquina
+```
